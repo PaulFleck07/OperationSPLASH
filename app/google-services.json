@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "408040874638",
+    "project_id": "operationsplash-61ccc",
+    "storage_bucket": "operationsplash-61ccc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:408040874638:android:1669fafba93bac82421fdf",
+        "android_client_info": {
+          "package_name": "com.example.operationsplash"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAiMb6N_ncXMK_RJv_rgcWrlx3ZSwSoNJ8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
