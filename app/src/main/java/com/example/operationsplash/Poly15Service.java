@@ -2,34 +2,28 @@ package com.example.operationsplash;
 
 import android.app.Service;
 import android.content.Intent;
+import android.os.IBinder;
 import android.graphics.Color;
 import android.os.Handler;
-import android.os.IBinder;
 import android.util.Log;
-import android.widget.Toast;
 
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-
-import com.google.android.gms.maps.model.Polygon;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class Poly1Service extends Service {
-
-
-
+public class Poly15Service extends Service {
     private double greenFraction;
     private Handler handler;
     private Runnable runnable;
-    private long totalDuration = 432000000; // 5 days in milliseconds, is how long it takes for the location's status to go back to 100% unclean, or 100% red, from being 100% clean, or 100% green.
+    private long totalDuration = 30000; // in milliseconds
     private long startTime;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private String polygonId;
 
 
-public Poly1Service() {}
+    public Poly15Service() {
+    }
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -40,7 +34,6 @@ public Poly1Service() {}
     public int onStartCommand(Intent intent, int flags, int startId) {
         polygonId = intent.getStringExtra("polygonId");
         greenFraction = intent.getDoubleExtra("greenFraction", 0.0);
-        totalDuration*=(greenFraction);
         if (greenFraction < 0.0 || greenFraction > 1.0) {
             stopSelf();
             return START_NOT_STICKY;
@@ -74,7 +67,7 @@ public Poly1Service() {}
 
         float currentFraction = ((float) elapsedTime / totalDuration);
 
-        int ogColor = Color.argb(100, (int)(255 * (1 - greenFraction)), (int) (255 * greenFraction), 0);
+        int ogColor = Color.argb(100, (int) (255 * (1 - greenFraction)), (int) (255 * greenFraction), 0);
         int updatedColor = blendColors(ogColor, Color.argb(100, 255, 0, 0), currentFraction);
 
         // Update the polygon color in Firestore directly
@@ -91,10 +84,8 @@ public Poly1Service() {}
         // Update Firestore with the new polygon color
         db.collection("polygons").document(polygonId)
                 .update(polygonMap)
-                .addOnSuccessListener(aVoid -> Log.d("Poly1Service",
-                        "Polygon color successfully updated in Firestore!"))
-                .addOnFailureListener(e -> Log.w("Poly1Service",
-                        "Error updating polygon color in Firestore", e));
+                .addOnSuccessListener(aVoid -> Log.d("Poly1Service", "Polygon color successfully updated in Firestore!"))
+                .addOnFailureListener(e -> Log.w("Poly1Service", "Error updating polygon color in Firestore", e));
     }
 
     private int blendColors(int startColor, int endColor, float fraction) {

@@ -64,12 +64,7 @@ public class OverlayFragment extends Fragment {
             throw new ClassCastException(context.toString()
                     + " must implement OnPolygonServiceListener and OtherInterface");
         }
-       /* if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }*/
+
     }
 
 
@@ -112,7 +107,6 @@ public class OverlayFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_overlay, container, false);
-
         progressBar = view.findViewById(R.id.progressBar);
         seekBar3 = view.findViewById(R.id.seekBar3);
 
@@ -120,7 +114,6 @@ public class OverlayFragment extends Fragment {
         clickableUpdate = view.findViewById(R.id.textView1);
 
         clickableUpdate.setOnClickListener(new View.OnClickListener() {
-
                 @Override
                 public void onClick(View v) {
                     // Execute the method when the TextView is clicked
@@ -133,8 +126,6 @@ public class OverlayFragment extends Fragment {
                     }
                 }
             });
-
-
         clickableQuit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -144,9 +135,6 @@ public class OverlayFragment extends Fragment {
                 }
             }
         });
-
-
-
         return view;
     }
 

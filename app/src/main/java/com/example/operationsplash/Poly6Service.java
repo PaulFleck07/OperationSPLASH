@@ -16,20 +16,20 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Poly1Service extends Service {
+public class Poly6Service extends Service {
 
 
 
     private double greenFraction;
     private Handler handler;
     private Runnable runnable;
-    private long totalDuration = 432000000; // 5 days in milliseconds, is how long it takes for the location's status to go back to 100% unclean, or 100% red, from being 100% clean, or 100% green.
+    private long totalDuration = 30000; // in milliseconds
     private long startTime;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private String polygonId;
 
 
-public Poly1Service() {}
+    public Poly6Service() {}
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -40,7 +40,6 @@ public Poly1Service() {}
     public int onStartCommand(Intent intent, int flags, int startId) {
         polygonId = intent.getStringExtra("polygonId");
         greenFraction = intent.getDoubleExtra("greenFraction", 0.0);
-        totalDuration*=(greenFraction);
         if (greenFraction < 0.0 || greenFraction > 1.0) {
             stopSelf();
             return START_NOT_STICKY;
